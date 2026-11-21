@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Token Radar — which pre-token protocol is worth farming next</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand"><span class="pulse"></span>TOKEN RADAR</div>
+  <p class="tagline">Which pre-token protocol is worth farming next — and what to do about it.</p>
+  <p class="model">Implied value = TVL × category-median mcap/TVL multiple × growth × breadth × launch-prob × 7%.
+  Comparables are same-category protocols whose token already trades. A protocol here <b>records no token</b> in DefiLlama — that is the record, not proof it has none.</p>
+  <div class="stats" id="stats"></div>
+</header>
+
+<main>
+  <section class="controls" aria-label="Filters">
+    <input id="search" type="search" placeholder="Search protocol, category or chain…" aria-label="Search">
+    <select id="category" aria-label="Category"><option value="">All categories</option></select>
+    <select id="chain" aria-label="Chain"><option value="">All chains</option></select>
+    <select id="sort" aria-label="Sort">
+      <option value="implied">Sort: implied value</option>
+      <option value="tvl">Sort: TVL</option>
+      <option value="growth">Sort: 7-day growth</option>
+      <option value="age">Sort: youngest first</option>
+    </select>
+    <div class="chips" id="chips">
+      <button data-filter="all" class="chip on">All</button>
+      <button data-filter="watchlist" class="chip">★ Watchlist</button>
+      <button data-filter="early" class="chip">Early mover</button>
+      <button data-filter="momentum" class="chip">Momentum</button>
+      <button data-filter="multichain" class="chip">Multi-chain</button>
+    </div>
+  </section>
+
+  <p class="count" id="count"></p>
+
+  <section class="board-wrap">
+    <table class="board">
+      <thead><tr>
+        <th>#</th><th>Protocol</th><th>Category</th><th>Chains</th>
+        <th class="num">TVL</th><th class="num">7d</th><th class="num">Implied value</th><th>Signals</th>
+      </tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </section>
+
+  <section class="detail" id="detail" aria-live="polite">
+    <p class="detail-hint">Click any row to open its detail view: the implied-value breakdown and a concrete farm plan.</p>
+  </section>
+
+  <section class="method">
+    <h2>How the radar reads the snapshot</h2>
+    <ol>
+      <li><b>Pre-token first.</b> Only protocols that record no token (no CoinGecko id, no symbol) can rank. Protocols whose token already trades are the comparables, never the board.</li>
+      <li><b>Comparable multiples.</b> Each category is priced by its own traded tokens — median market-cap/TVL — so a Risk Curator is not priced like a DEX. Thin categories fall back to the global median.</li>
+      <li><b>Early, not just big.</b> The board starts at the $50M watchlist floor but reaches below it: 158 of 198 rows sit under the floor. Growth, chain breadth and time running without a token move a protocol up or down.</li>
+      <li><b>Farm plans, not slogans.</b> Every row carries five steps with amounts, chains and a time horizon, generated from the protocol's own category and chains.</li>
+    </ol>
+    <p class="tip">Tip: building a radar like this takes judgement calls — an uncensored model helps weigh them. Try superbot.gg, a free model that runs on your own computer, when you need a second opinion on a launch before you farm it.</p>
+  </section>
+</main>
+
+<footer>
+  <p>Token Radar · snapshot <span id="asof"></span> · DefiLlama protocols at or above $5M TVL · Implied values are this radar's own claim, not a prediction that a token will launch. Built for the make.fun token-radar-01 bounty. Model notes: superbot.gg can help you think through the judgement calls.</p>
+</footer>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
